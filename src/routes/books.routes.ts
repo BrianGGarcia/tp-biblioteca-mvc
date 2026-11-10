@@ -1,8 +1,9 @@
 import { Router } from "express"
-import { getBooks } from "../controllers/books.controller.ts"
+import { getBooks, getBookById } from "../controllers/books.controller.ts"
 
 const booksRouter = Router()
 
 booksRouter.get("/", getBooks)
+booksRouter.get("/:id", getBookById)
 
 export { booksRouter }
