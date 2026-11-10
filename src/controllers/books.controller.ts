@@ -5,9 +5,13 @@ const getBooks = async (_req: Request, res: Response) => {
     try {
         const books = await Book.find()
 
-        res.status(200).json(books)
+        res.status(200).json({
+            success: true,
+            data: books
+        })
     } catch (error) {
         res.status(500).json({
+            success: false,
             error: "Error al obtener los libros"
         })
     }
@@ -21,13 +25,18 @@ const getBookById = async (req: Request, res: Response) => {
 
         if (!book) {
             return res.status(404).json({
+                success: false,
                 error: "Libro no encontrado"
             })
         }
 
-        res.status(200).json(book)
+        res.status(200).json({
+            success: true,
+            data: book
+        })
     } catch (error) {
         res.status(500).json({
+            success: false,
             error: "Error al obtener el libro"
         })
     }
@@ -39,9 +48,13 @@ const createBook = async (req: Request, res: Response) => {
 
         const newBook = await Book.create(body)
 
-        res.status(201).json(newBook)
+        res.status(201).json({
+            success: true,
+            data: newBook
+        })
     } catch (error) {
         res.status(500).json({
+            success: false,
             error: "Error al crear el libro"
         })
     }
@@ -60,13 +73,18 @@ const updateBook = async (req: Request, res: Response) => {
 
         if (!updatedBook) {
             return res.status(404).json({
+                success: false,
                 error: "Libro no encontrado"
             })
         }
 
-        res.status(200).json(updatedBook)
+        res.status(200).json({
+            success: true,
+            data: updatedBook
+        })
     } catch (error) {
         res.status(500).json({
+            success: false,
             error: "Error al actualizar el libro"
         })
     }
@@ -80,15 +98,18 @@ const deleteBook = async (req: Request, res: Response) => {
 
         if (!deletedBook) {
             return res.status(404).json({
+                success: false,
                 error: "Libro no encontrado"
             })
         }
 
         res.status(200).json({
+            success: true,
             message: "Libro eliminado correctamente"
         })
     } catch (error) {
         res.status(500).json({
+            success: false,
             error: "Error al eliminar el libro"
         })
     }
