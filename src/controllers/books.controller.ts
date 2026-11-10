@@ -60,12 +60,25 @@ const createBook = async (req: Request, res: Response) => {
             data: newBook
         })
     } catch (error) {
+        if (
+            typeof error === "object" &&
+            error !== null &&
+            "code" in error &&
+            error.code === 11000
+        ) {
+            return res.status(409).json({
+                success: false,
+                error: "Ya existe un libro con ese título"
+            })
+        }
+
         res.status(500).json({
             success: false,
             error: "Error al crear el libro"
         })
     }
 }
+
 
 const updateBook = async (req: Request, res: Response) => {
     try {
