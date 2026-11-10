@@ -35,6 +35,13 @@ const getBookById = async (req: Request, res: Response) => {
             data: book
         })
     } catch (error) {
+        if (error instanceof Error && error.name === "CastError") {
+            return res.status(400).json({
+                success: false,
+                error: "ID inválido"
+            })
+        }
+
         res.status(500).json({
             success: false,
             error: "Error al obtener el libro"
@@ -83,6 +90,13 @@ const updateBook = async (req: Request, res: Response) => {
             data: updatedBook
         })
     } catch (error) {
+        if (error instanceof Error && error.name === "CastError") {
+            return res.status(400).json({
+                success: false,
+                error: "ID inválido"
+            })
+        }
+
         res.status(500).json({
             success: false,
             error: "Error al actualizar el libro"
@@ -108,6 +122,13 @@ const deleteBook = async (req: Request, res: Response) => {
             message: "Libro eliminado correctamente"
         })
     } catch (error) {
+        if (error instanceof Error && error.name === "CastError") {
+            return res.status(400).json({
+                success: false,
+                error: "ID inválido"
+            })
+        }
+
         res.status(500).json({
             success: false,
             error: "Error al eliminar el libro"
