@@ -1,7 +1,16 @@
+import express from "express"
 import { connectMongoDb } from "./config/connectMongoDb.ts"
 
 process.loadEnvFile()
 
+const PORT = process.env.PORT
 const URI_DB = process.env.URI_DB
 
-connectMongoDb(URI_DB)
+const app = express()
+
+app.use(express.json())
+
+app.listen(PORT, () => {
+    connectMongoDb(URI_DB)
+    console.log(`Servidor en escucha en http://localhost:${PORT}`)
+})
