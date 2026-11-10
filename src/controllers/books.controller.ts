@@ -89,7 +89,10 @@ const updateBook = async (req: Request, res: Response) => {
         const updatedBook = await Book.findByIdAndUpdate(
             id,
             body,
-            { returnDocument: "after" }
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
         )
 
         if (!updatedBook) {
@@ -108,6 +111,13 @@ const updateBook = async (req: Request, res: Response) => {
             return res.status(400).json({
                 success: false,
                 error: "ID inválido"
+            })
+        }
+
+        if (error instanceof Error && error.name === "ValidationError") {
+            return res.status(400).json({
+                success: false,
+                error: "Datos inválidos"
             })
         }
 
