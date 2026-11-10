@@ -1,0 +1,19 @@
+{
+  "name": "tp-biblioteca-mvc",
+  "version": "1.0.0",
+  "description": "API RESTful de biblioteca digital con Node.js, Express, TypeScript y MongoDB",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "node --watch ./src/index.ts",
+    "build": "tsc",
+    "start": "node ./dist/index.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "typescript",
+    "mongodb",
+    "mvc"
+  ],
+  "type": "module"
+}
