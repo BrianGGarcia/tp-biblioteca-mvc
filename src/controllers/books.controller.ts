@@ -60,15 +60,17 @@ const createBook = async (req: Request, res: Response) => {
             data: newBook
         })
     } catch (error) {
-        if (
-            typeof error === "object" &&
-            error !== null &&
-            "code" in error &&
-            error.code === 11000
-        ) {
+        if (typeof error === "object" && error !== null && "code" in error && error.code === 11000) {
             return res.status(409).json({
                 success: false,
                 error: "Ya existe un libro con ese título"
+            })
+        }
+
+        if (error instanceof Error && error.name === "ValidationError") {
+            return res.status(400).json({
+                success: false,
+                error: "Faltan campos obligatorios"
             })
         }
 
@@ -78,7 +80,6 @@ const createBook = async (req: Request, res: Response) => {
         })
     }
 }
-
 
 const updateBook = async (req: Request, res: Response) => {
     try {
