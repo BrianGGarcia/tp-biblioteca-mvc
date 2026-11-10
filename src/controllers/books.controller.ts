@@ -47,4 +47,29 @@ const createBook = async (req: Request, res: Response) => {
     }
 }
 
-export { getBooks, getBookById, createBook }
+const updateBook = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id
+        const body = req.body
+
+        const updatedBook = await Book.findByIdAndUpdate(
+            id,
+            body,
+            { returnDocument: "after" }
+        )
+
+        if (!updatedBook) {
+            return res.status(404).json({
+                error: "Libro no encontrado"
+            })
+        }
+
+        res.status(200).json(updatedBook)
+    } catch (error) {
+        res.status(500).json({
+            error: "Error al actualizar el libro"
+        })
+    }
+}
+
+export { getBooks, getBookById, createBook, updateBook }
