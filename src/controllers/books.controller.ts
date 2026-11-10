@@ -33,4 +33,18 @@ const getBookById = async (req: Request, res: Response) => {
     }
 }
 
-export { getBooks, getBookById }
+const createBook = async (req: Request, res: Response) => {
+    try {
+        const body = req.body
+
+        const newBook = await Book.create(body)
+
+        res.status(201).json(newBook)
+    } catch (error) {
+        res.status(500).json({
+            error: "Error al crear el libro"
+        })
+    }
+}
+
+export { getBooks, getBookById, createBook }
